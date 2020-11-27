@@ -1,2 +1,4 @@
 # Geoguessr-AI
 Hacking Geoguessr with machine learning
+
+The goal of this project is to input a random image from Google Streetview into a convolutional neural network, which will try and predict either the country or coordinates at which the image was taken.  Right now the model uses Google's MobileNetV2 as a base, and can correctly predict whether images were taken in Sweden or Kenya with accuracy around 70%.  The image dataset (currently only 2400 images) was obtained from Mapillary's database using the Mapillary API.  These images are slightly lower quality in general than those used by Geoguessr from Google's dataset, but they are free and easy to access.  In the future, the Sweden and Kenya datasets will likely be expanded, and I'll try to use some different neural net designs to try and up the accuracy before expanding to more countries.
