@@ -1,0 +1,17 @@
+import json, requests, os
+
+os.mkdir('[name of directory]')  # exclude after first execution
+
+with open('[geojson file].geojson') as f:
+    new_dict = f.read()
+
+new_dict = json.loads(new_dict)
+
+i = 0
+for image in new_dict['features']:
+    image_key = image['properties']['key']
+    image_url = 'https://images.mapillary.com/{}/thumb-320.jpg'.format(image_key)
+    response = requests.get(image_url)
+    with open('[name of directory]/pic{}.jpg'.format(i), 'wb') as handle:
+         handle.write(response.content)
+    i += 1
