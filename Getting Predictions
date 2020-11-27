@@ -1,0 +1,25 @@
+# Still pretty buggy, strong bias towards Sweden images for some reason
+
+model = tf.keras.models.load_model('[model_name.h5]')
+
+predictions = model.predict(test_dataset)
+predictions = tf.nn.sigmoid(predictions)
+predictions = tf.where(predictions > 0.5, 1, 0).numpy().astype(int)
+
+np_images = []
+np_labels = []
+
+for images, labels in test_dataset.take(1):
+    np_images.append(images.numpy())
+    np_labels.append(labels.numpy())
+
+
+np_images = np.array(np_images).reshape(40, 160, 160, 3)
+np_images = np_images / 255.0
+
+i = 0
+for image in np_images:
+    plt.imshow(image)
+    plt.title('Predicted: ' + class_names[int(predictions[i])])
+    plt.show()
+    i += 1
