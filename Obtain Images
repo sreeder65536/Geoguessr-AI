@@ -1,0 +1,25 @@
+import json, requests, os
+
+
+client_id = 'R0JmWXMwbzk0MkRoakg1YnJ4SHFIaDoxMWRjMTBhNDU2MzVmODM1'
+username = 'machinemapper'
+coords = '138.6031,-33.2054'  # Jamestown AUS
+url = 'https://a.mapillary.com/v3/images?client_id={}&closeto={}&radius=1000'.format(client_id, coords)
+
+output = {"type":"FeatureCollection","features":[]}
+
+with open('sample_images_AUS.geojson', 'w') as outfile:
+    r = requests.get(url, timeout=None)
+
+    while r.status_code != 200:
+         r = requests.get(url, timeout=None)
+
+    data = r.json()
+    data_length = len(data['features'])
+    for feature in data['features']:
+        output['features'].append(feature)
+
+    image_key = data['features'][0]['properties']['key']
+    image = 'https://images.mapillary.com/{}/thumb-1024.jpg'.format(image_key)
+    print(image)
+    
