@@ -1,14 +1,14 @@
 import json, requests, os
 
 
-client_id = 'R0JmWXMwbzk0MkRoakg1YnJ4SHFIaDoxMWRjMTBhNDU2MzVmODM1'
-username = 'machinemapper'
-coords = '138.6031,-33.2054'  # Jamestown AUS
+client_id = '[YOUR CLIENT ID]'
+username = '[YOUR USERNAME]'
+coords = '18.0678,59.3212'  # Stockholm SWE (longditude, latitude)
 url = 'https://a.mapillary.com/v3/images?client_id={}&closeto={}&radius=1000'.format(client_id, coords)
 
 output = {"type":"FeatureCollection","features":[]}
 
-with open('sample_images_AUS.geojson', 'w') as outfile:
+with open('Sweden_geojson.geojson', 'w') as outfile:
     r = requests.get(url, timeout=None)
 
     while r.status_code != 200:
